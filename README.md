@@ -13,3 +13,6 @@ Start Date :  1-May-2018
 
 End Date : 31st-Oct-2018
 
+
+
+There has been a german word2vec model obtained and a german stoplist created.
