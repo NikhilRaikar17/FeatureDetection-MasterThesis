@@ -1,0 +1,31 @@
+Extracting requirements from keywords
+
+Approach : Clustering using Kmeans Approach.
+
+Main_Dependencies :
+1. Python > 3
+2. Nltk
+3. sklearn
+
+
+Approach Description:
+  1. Clustering similar sentences.
+  2. Frequency and Pos Tags based approach used to get relevant keywords from the set of requirements corpus.
+  3. Adjectives followed by a Noun pair formulate a good keyword.(also Noun followed by a Noun)
+  4. Pairs of these are extracted from the corpus and evaluated.
+
+Evaluation against Groudn Truth :
+  1. Better results with ground truth.
+  2. Against textrank also as a evaluation parameter.(Added parameter)
+  3. Works better than all other models.
+
+
+Tree Construction approaches tried:
+1. Similarity based approach can be used.
+2. occurrence based approaches can be used.
+
+Bias/ApproachTunning:
+1. Number of cluster selection has to be evaluated with more hyperparameters.
+
+
+

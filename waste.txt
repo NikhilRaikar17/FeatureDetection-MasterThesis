@@ -1,0 +1,2 @@
+pressing the corresponding button on the remote control the alarm system is activated when it was previously inactive
+pressing the corresponding button on the remote control the alarm system is deactivated if it was active before
