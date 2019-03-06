@@ -68,14 +68,12 @@ def named_Entity(cluster):
     # For NNP.
     fre_nnp = nltk.FreqDist(nnp)
     for word, frequency in fre_nnp.most_common(15):
-        # print(u'{};{}'.format(word, frequency))
         print(word[0],'is a proper noun having a frequency of:',frequency)
         NNP_Final.append(word[0])
 
     # For Adjectives:Nouns:Nouns.
     fre_trinn = nltk.FreqDist(trigr)
     for word, frequency in fre_trinn.most_common(15):
-        # print(u'{};{}'.format(word, frequency))
         aj_nn = (word[0] +' '+ word[3] +' ' + word[6])
         features_list_aj_nn.append(aj_nn)
     print('Feature_Set_trigrams:',features_list_aj_nn)
@@ -83,7 +81,6 @@ def named_Entity(cluster):
     # For Nouns.
     fre_noun = nltk.FreqDist(noun_add)
     for word, frequency in fre_noun.most_common(15):
-        # print(u'{};{}'.format(word, frequency))
         for_nouns = (word[0] + ' ' + word[3])
         features_list_nouns.append(for_nouns)
         features_list_big1.append(for_nouns)
@@ -92,7 +89,6 @@ def named_Entity(cluster):
     # For adjectives and Nouns
     fre_nnjj = nltk.FreqDist(NNJJ)
     for word, frequency in fre_nnjj.most_common(15):
-        # print(u'{};{}'.format(word, frequency))
         for_bigram2 = (word[0] + ' ' + word[3])
         if(for_bigram2 not in features_list_nouns):
             features_list_nouns.append(for_bigram2)
@@ -177,3 +173,5 @@ def named_Entity(cluster):
     #             feature_final.append(i)
     #         else:
     #             print( i,'is already in',j,' and hence can be discarded')
+
+    # print(u'{};{}'.format(word, frequency))
