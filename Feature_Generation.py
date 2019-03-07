@@ -118,7 +118,7 @@ def named_Entity(cluster):
             andor.append(i.split())
     print('The combinations to find andor:',andor)
 
-    # If there exists NNP for a cluster, then calculate similarity.
+    # If there exists NNP for a cluster, then dont calculate similarity.
     if len(NNP_Final)!=0:
         k = 0
         while k < len(andor):
