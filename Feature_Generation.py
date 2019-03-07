@@ -25,7 +25,6 @@ def named_Entity(cluster):
     noun_add = []
     trigr = []
     NN = []
-    relation = []
     NNP_Final = [] # Node with NNP.
     features_list_aj_nn = [] # For trigrams.
     features_list_nouns = [] # For total feature calculations.
@@ -33,6 +32,7 @@ def named_Entity(cluster):
     features_list_big2 = [] # for bigrames of adjectives and nounpairs.
     feature_final = [] # Gives Final features.
     complete_set = [] # contains complete set of features.
+    nouns_only = [] # When nothing is extracted, the nouns are extracted.
     andor = []
 
     # To retrieve nodes using NNP tags
@@ -41,9 +41,9 @@ def named_Entity(cluster):
             noun = iob_tagged[j]
             nnp .append(noun)
 
-        # if (iob_tagged[j][1] == 'NN'):
-        #     noun1 = iob_tagged[j]
-        #     NN.append(noun1)
+        if (iob_tagged[j][1] == 'NN'):
+            noun1 = iob_tagged[j]
+            NN.append(noun1)
 
     # To retrieve adjectives and Nouns in the sentences
     for i in range(0, len(iob_tagged) - 1):
@@ -95,6 +95,7 @@ def named_Entity(cluster):
         features_list_big2.append(for_bigram2)
     print('Feature_Set_bigrams_2:', features_list_big2)
 
+
     # Checks which features to keep and which to discard.
     for i in features_list_aj_nn:
         for j in features_list_nouns:
@@ -112,13 +113,29 @@ def named_Entity(cluster):
     complete_set = (feature_final + features_list_nouns)
     print('Total Feature set:',complete_set)
 
+    # For Noun pairs extraction when nothing else is extracted.
+    list1 = []
+    if (len(complete_set) == 0):
+        fre_onlynn = nltk.FreqDist(NN)
+        
+        # Checks for frequency criteria.
+        for word, frequency in fre_onlynn.most_common(15):
+            list1.append(frequency)
+        criteria = max(list1)
+        
+        # Selects only valid features which match the criteria.
+        for word, frequency in fre_onlynn.most_common(15):
+            if(frequency>=int(criteria/2)):
+                nouns_only.append(word[0])
+        print('Feature set extended:',nouns_only)
+
     # # To Find AND and OR.
     for elements in list(combinations(complete_set, 2)):
         for i in elements:
             andor.append(i.split())
     print('The combinations to find andor:',andor)
 
-    # If there exists NNP for a cluster, then dont calculate similarity.
+    # If there exists NNP for a cluster, then calculate similarity.
     if len(NNP_Final)!=0:
         k = 0
         while k < len(andor):
@@ -144,24 +161,15 @@ def named_Entity(cluster):
                 # print(sentences)
                 mand.append(sentences)
         crit = int(len(clu)/2)
-        print(crit)
-        print(mand)
+        # print(crit)
+        # print(mand)
         if (len(mand) == len(clu)) or (len(mand)>=crit):
+            print(" ")
             print(s,'Mandatory for this cluster')
         else:
+            print(" ")
             print(s,'optional for this cluster')
         mand = []
-        print(" ")
-        print(" ")
-
-    # For Noun pairs - Not implemented.
-    # fre_onlynn = nltk.FreqDist(NN)
-    # for word, frequency in fre_onlynn.most_common(15):
-    #       print(u'{};{}'.format(word, frequency))
-
-    # fre_onlynn = nltk.FreqDist(relation)
-    # for word, frequency in fre_onlynn.most_common(15):
-    #     print(u'{};{}'.format(word, frequency))
 
     # ne_tree = conlltags2tree(iob_tagged)
     # print(ne_tree)
