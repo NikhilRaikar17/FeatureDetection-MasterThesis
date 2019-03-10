@@ -112,6 +112,12 @@ def named_Entity(cluster):
     # Complete set of features.
     complete_set = (feature_final + features_list_nouns)
     print('Total Feature set:',complete_set)
+    
+    # If the complete list contains unstructured keywords which needs processing.
+    # Here the variable is hardcoded.
+    for e in complete_set:
+        if 'anti-trap protection' in e:
+            complete_set.remove(e)
 
     # For Noun pairs extraction when nothing else is extracted.
     list1 = []
@@ -136,7 +142,7 @@ def named_Entity(cluster):
     print('The combinations to find andor:',andor)
 
     # If there exists NNP for a cluster, then calculate similarity.
-    if len(NNP_Final)!=0:
+    if len(NNP_Final)==0:
         k = 0
         while k < len(andor):
             sim = model.n_similarity(andor[k], andor[k + 1])
