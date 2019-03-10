@@ -112,7 +112,7 @@ def named_Entity(cluster):
     # Complete set of features.
     complete_set = (feature_final + features_list_nouns)
     print('Total Feature set:',complete_set)
-    
+
     # If the complete list contains unstructured keywords which needs processing.
     # Here the variable is hardcoded.
     for e in complete_set:
@@ -134,6 +134,11 @@ def named_Entity(cluster):
             if(frequency>=int(criteria/2)):
                 nouns_only.append(word[0])
         print('Feature set extended:',nouns_only)
+
+        for elements in list(combinations(nouns_only, 2)):
+            for i in elements:
+                andor.append(i.split())
+        print('The combinations to find andor:', andor)
 
     # # To Find AND and OR.
     for elements in list(combinations(complete_set, 2)):
